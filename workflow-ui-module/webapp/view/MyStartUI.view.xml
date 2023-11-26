@@ -1,0 +1,70 @@
+<mvc:View xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core"
+            xmlns:l="sap.ui.layout" xmlns:uxap="sap.uxap" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+            controllerName="startuitest.workflowuimodule.controller.MyStartUI" displayBlock="true">
+
+    <App id="app">
+        <pages>
+            <Page id="_IDGenPage1" title="Workflow Start UI">
+                <content>                  
+                    <uxap:ObjectPageLayout id="_IDGenObjectPageLayout1" upperCaseAnchorBar="false">
+                        <uxap:headerTitle>
+                            <uxap:ObjectPageHeader id="_IDGenObjectPageHeader1" objectTitle="{i18n>Customer_MASTER_CREATION_REQUEST}"></uxap:ObjectPageHeader>
+                        </uxap:headerTitle>
+                        <uxap:sections>
+                            <!-- Requester -->
+                            <uxap:ObjectPageSection id="_IDGenObjectPageSection1" titleUppercase="false" title="{i18n>TestData}" titleLevel="H6" showTitle="true">
+                                <uxap:subSections>
+                                    <uxap:ObjectPageSubSection id="_IDGenObjectPageSubSection1">
+                                        <uxap:blocks>
+                                            <f:SimpleForm
+                                              id="_IDGenSimpleForm1"
+                                              editable="true"
+                                              layout="ResponsiveGridLayout"
+                                              title=""
+                                              labelSpanXL="4"
+                                              labelSpanL="4"
+                                              labelSpanM="12"
+                                              labelSpanS="12"
+                                              adjustLabelSpan="false"
+                                              emptySpanXL="3"
+                                              emptySpanL="3"
+                                              emptySpanM="0"
+                                              emptySpanS="0"
+                                              columnsXL="1"
+                                              columnsL="1"
+                                              columnsM="1"
+                                              singleContainerFullSize="true">
+                                                <f:content>
+                                                    <Label id="_IDGenLabel1" text="{i18n>BusinessPartnerGrouping}" required="true"/>
+                                                    <Input id="_IDGenInput1" value="{mBP>/BPCreationRequest/BusinessPartnerGrouping}" change="onChange" />
+                                                   
+                                                    <Label id="_IDGenLabel2" text="{i18n>BusinessPartnerCategory}" required="true"/>
+                                                    <Input id="_IDGenInput2" value="{mBP>/BPCreationRequest/BusinessPartnerCategory}" change="onChange" />
+
+                                                    <Label id="_IDGenLabel3" text="{i18n>OrganizationBPName1}" required="true"/>
+                                                    <Input id="_IDGenInput3" value="{mBP>/BPCreationRequest/OrganizationBPName1}" change="onChange" />
+
+                                                    <Label id="_IDGenLabel4" text="{i18n>SearchTerm1}" required="true"/>
+                                                    <Input id="_IDGenInput4" value="{mBP>/BPCreationRequest/SearchTerm1}" change="onChange" />
+
+                                                    <Label id="_IDGenLabel5" text="{i18n>BusinessPartnerType}" required="true"/>
+                                                    <Input id="_IDGenInput5" value="{mBP>/BPCreationRequest/BusinessPartnerType}" change="onChange" />
+                                                </f:content>
+                                            </f:SimpleForm>
+                                        </uxap:blocks>
+                                    </uxap:ObjectPageSubSection>
+                                </uxap:subSections>
+                            </uxap:ObjectPageSection>
+                        </uxap:sections>
+                    </uxap:ObjectPageLayout>
+                </content>
+                    <OverflowToolbar id="_IDGenOverflowToolbar1">
+                        <ToolbarSpacer id="_IDGenToolbarSpacer2"/>
+                        <Button id="_IDGenButton3" text="{i18n>SUBMIT}" press="startWorkflowInstance" enabled="{/oEnable/sInput}" type="Emphasized" class="sapUiTinyMarginEnd"/>
+                    </OverflowToolbar>
+                <footer>
+                </footer>
+            </Page>
+        </pages>
+    </App>
+</mvc:View>

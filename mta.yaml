@@ -1,0 +1,122 @@
+_schema-version: "3.2"
+ID: workflow_test1
+version: 0.0.1
+modules:
+- name: workflow-module
+  type: com.sap.application.content
+  path: workflow-module
+  requires:
+  - name: sap_processautomation
+    parameters:
+      content-target: true
+      service-key:
+        config:
+          deployUsageScenario: workflow
+        name: spa-workflow-service-key
+- name: workflow_test1-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: workflow_test1-destination-service
+    parameters:
+      content-target: true
+  - name: workflow_test1_html_repo_host
+    parameters:
+      service-key:
+        name: workflow_test1_html_repo_host-key
+  - name: uaa_workflow_test1
+    parameters:
+      service-key:
+        name: uaa_workflow_test1-key
+  parameters:
+    content:
+      subaccount:
+        destinations:
+        - Name: test_workflow_1_workflow_test1_html_repo_host
+          ServiceInstanceName: workflow_test1-html5-app-host-service
+          ServiceKeyName: workflow_test1_html_repo_host-key
+          sap.cloud.service: test_workflow_1
+        - Authentication: OAuth2UserTokenExchange
+          Name: test_workflow_1_uaa_workflow_test1
+          ServiceInstanceName: workflow_test1-xsuaa-service
+          ServiceKeyName: uaa_workflow_test1-key
+          sap.cloud.service: test_workflow_1
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+- name: workflow_test1-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: workflow_test1_html_repo_host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - startuitestworkflowuimodule.zip
+      name: startuitestworkflowuimodule
+      target-path: resources/
+    - artifacts:
+      - ApproveFormapproveform.zip
+      name: ApproveFormapproveform
+      target-path: resources/
+- name: startuitestworkflowuimodule
+  type: html5
+  path: workflow-ui-module
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: ApproveFormapproveform
+  type: html5
+  path: approveform
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: sap_processautomation
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: process-automation-service
+    service-plan: standard
+- name: workflow_test1-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        subaccount:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: workflow_test1-destination-service
+    service-plan: lite
+- name: workflow_test1_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: workflow_test1-html5-app-host-service
+    service-plan: app-host
+- name: uaa_workflow_test1
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: workflow_test1-xsuaa-service
+    service-plan: application
+parameters:
+  deploy_mode: html5-repo

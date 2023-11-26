@@ -1,0 +1,9 @@
+{
+    "BPCreationRequest":{
+        "BusinessPartnerGrouping" : "ZC11",
+        "BusinessPartnerCategory": "2",
+        "OrganizationBPName1" : "TEST_ORG1",
+        "SearchTerm1" : "TEST_ORG1",
+        "BusinessPartnerType": "0001"
+    }
+}
